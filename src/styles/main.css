@@ -486,14 +486,8 @@ video {
     max-width: 1536px;
   }
 }
-.absolute {
-  position: absolute;
-}
 .block {
   display: block;
-}
-.table {
-  display: table;
 }
 .border {
   border-width: 1px;

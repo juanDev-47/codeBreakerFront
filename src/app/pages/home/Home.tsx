@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Grid, InputBase, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -68,10 +68,6 @@ const Home = () => {
     });
   };
 
-  // effect for get products by category
-  // useEffect(() => {
-
-  // }, [category]);
 
   return (
     <>
