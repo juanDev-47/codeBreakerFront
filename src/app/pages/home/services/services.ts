@@ -10,6 +10,7 @@ interface codeBreaker {
 }
 
 export const playCodeBreaker = async (codeBreaker: codeBreaker) => {
+  console.log("playCodeBreaker from services: ", codeBreaker);
   try {
     return await axios.post(
       `${API_URL}${endpoints.game.codeBreaker}`,

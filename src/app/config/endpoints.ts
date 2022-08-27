@@ -1,5 +1,5 @@
 export const endpoints = {
   "game": {
-    "codeBreaker": "/codeBreaker",
+    "codeBreaker": "codeBreaker",
   }
 }

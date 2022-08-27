@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid, InputBase, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-import {
-  playCodeBreaker
-} from "./services/services.ts";
+import { playCodeBreaker } from "./services/services.ts";
+
+
+const StyledTypography2 = styled(Typography)`
+  padding: 0 20px;
+  font-size: { xs: "11px", md: "24px" };
+  width: 100%;
+  text-align: { md: "center" };
+  height: { xs: "100px", md: "200px" };
+`;
 
 const StyledTypography = styled(Typography)`
   padding: 0 20px;
@@ -18,7 +25,7 @@ const StyledTypography = styled(Typography)`
 const Search = styled("div")(({ theme }) => ({
   borderRadius: "20px",
   backgroundColor: "#FFFFFF",
-  marginLeft: '10%',
+  marginLeft: "10%",
   [theme.breakpoints.up("xs")]: {
     width: "80%",
   },
@@ -47,95 +54,113 @@ const StyledButtonVar = styled(Button)(({ theme }) => ({
   width: "80%",
 }));
 
-
 const Home = () => {
+  const [content, setContent] = useState({
+    secreto: "",
+    intento: "",
+  });
+  const [result, setResult] = useState("");
 
-  const [content, setContent] = useState({});
-  const [result, setResult] = useState({});
-
-  const play = (codeBreaker) => {
-    playCodeBreaker(codeBreaker).then((res) => {
-      console.table(res);
-      setResult(res.data.data);
+  const play = () => {
+    playCodeBreaker(content).then((res) => {
+      console.log(res.data.result);
+      setResult(res.data.result);
     });
   };
 
-
   // effect for get products by category
   // useEffect(() => {
-    
+
   // }, [category]);
 
   return (
-    <Grid
-    container
-    sx={{
-      width: "100%",
-      background: "#772CE8",
-      padding: { xs: "20px 0", md: "40px 0" },
-    }}
-    direction="row"
-    justifyContent="center"
-    alignItems="center"
-    spacing={{ xs: 3, md: 2 }}
-  >
-    <Grid
-      item
-      sm={12}
-      md={5}
-      sx={{ display: "block" }}
-      justifyContent="center"
-      alignItems="center"
-      textAlign="center"
-      width={{ xs: "100%" }}
-    >
-      <Grid sx={{ marginLeft: { xs: '0', md: "10%"}, textAlign: { xs: 'center', md: 'left'} }}>
-        <StyledTypography
-          fontSize={{ xs: "18px", md: "26px" }}
-          fontWeight={700}
-        >
-          SubscrÃ­bete a nuestro boletÃ­n
-        </StyledTypography>
-        <StyledTypography fontSize={{ xs: "14px", md: "18px" }}>
-          Recibe informaciÃ³n de nuestras ofertas
-        </StyledTypography>
-      </Grid>
-    </Grid>
-    <Grid
-      sm={12}
-      md={7}
-      container
-      item
-      justifyContent="center"
-      alignItems="center"
-      textAlign="center"
-    >
+    <>
       <Grid
-        xs={12}
-        md={6}
+        container
+        sx={{
+          width: "100%",
+          background: "#772CE8",
+          padding: { xs: "20px 0", md: "40px 0" },
+        }}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={{ xs: 3, md: 2 }}
       >
-        <Search>
-          <StyledInputBase
-            placeholder="Ingresa tu correo electrÃ³nico"
-            inputProps={{ "aria-label": "search" }}
-          />
-        </Search>
+        <Grid
+          item
+          sm={12}
+          md={4}
+          sx={{ display: "block" }}
+          justifyContent="center"
+          alignItems="center"
+          textAlign="center"
+          width={{ xs: "100%" }}
+        >
+          <Grid
+            sx={{
+              marginLeft: { xs: "0", md: "10%" },
+              textAlign: { xs: "center", md: "left" },
+            }}
+          >
+            <StyledTypography fontSize={{ xs: "14px", md: "18px" }}>
+              Play Code Breaker
+            </StyledTypography>
+          </Grid>
+        </Grid>
+
+        <Grid
+          sm={12}
+          md={8}
+          container
+          item
+          justifyContent="center"
+          alignItems="center"
+          textAlign="center"
+        >
+          <Grid xs={12} md={4}>
+            <Search>
+              <StyledInputBase
+                type="password"
+                onChange={(e) =>
+                  setContent({ ...content, secreto: e.target.value })
+                }
+                placeholder="Ingresa tu secreto"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </Grid>
+          <Grid xs={12} md={4}>
+            <Search>
+              <StyledInputBase
+                onChange={(e) =>
+                  setContent({ ...content, intento: e.target.value })
+                }
+                placeholder="Ingresa tu intento"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </Grid>
+          <Grid xs={12} md={4}>
+            <StyledButtonVar
+              onClick={() => {
+                play();
+              }}
+              variant="contained"
+            >
+              <Typography variant="body2">Intentar</Typography>
+            </StyledButtonVar>
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid xs={12} md={6}>
-        <StyledButtonVar variant="contained">
-          <Typography variant="body2" >
-            Subscribirme
-          </Typography>
-        </StyledButtonVar>
-      </Grid>
-      <Grid display={{ xs: "none", md: "block" }} margin={1} xs={12} md={12}>
-        <StyledTypography textAlign="left">
-          *Al subscribirme acepto recibir email de oldwave, bajo sus politicas
-          de datos
-        </StyledTypography>
-      </Grid>
-    </Grid>
-  </Grid>   
+      {result && (
+        <Grid item sm={12} md={12}>
+          <StyledTypography2 fontSize={{ xs: "14px", md: "32px" }} sx={{ textAlign: 'center', marginTop: '50px'}}>
+            Resultado: {result} {result === 'XXXX' ? '¡Felicidades!' : 'Sigue intentando'}
+          </StyledTypography2>
+        </Grid>
+      )}
+    </>
   );
 };
 
