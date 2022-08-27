@@ -28,6 +28,7 @@ const Search = styled("div")(({ theme }) => ({
   marginLeft: "10%",
   [theme.breakpoints.up("xs")]: {
     width: "80%",
+    marginBottom: "10px",
   },
 }));
 
@@ -114,15 +115,14 @@ const Home = () => {
           alignItems="center"
           textAlign="center"
         >
-          <Grid xs={12} md={4}>
+          <Grid xs={12} md={4} paddingBottom={{ xs: "10px", md: "0" }}>
             <Search>
-              <StyledInputBase
+              <StyledInputBase 
                 type="password"
                 onChange={(e) =>
                   setContent({ ...content, secreto: e.target.value })
                 }
                 placeholder="Ingresa tu secreto"
-                inputProps={{ "aria-label": "search" }}
               />
             </Search>
           </Grid>
@@ -133,7 +133,6 @@ const Home = () => {
                   setContent({ ...content, intento: e.target.value })
                 }
                 placeholder="Ingresa tu intento"
-                inputProps={{ "aria-label": "search" }}
               />
             </Search>
           </Grid>
